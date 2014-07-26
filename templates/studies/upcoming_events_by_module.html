@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load student_block %}
+{% load upcoming_events %}
+{% load fact %}
+{% block title %}Upcoming Events{% endblock %}
+
+{% block content %}
+	<!-- Main Start -->
+		<div class="row">
+	        <div class="col-md-9">
+
+                <div class="spiral"></div>
+                <div class="jumbotron notebook">
+                    <h2 class="page-title">Upcoming Tasks/Events</h2>
+                    {% for event in posts.object_list %}
+                        <div class="row">
+                            <div class="col-xs-2 col-md-1 event_datetime"><div class="event_date">{{ event.date|date:"d" }}</div><div class="event_month">{{ event.date|date:"M" }}</div></div>
+
+                            <div class="col-xs-10 col-md-11">
+                                <div class="col-md-12"><h4><i class="fa fa-edit"></i> {{ event.title }}</h4></div>
+                                <div class="col-md-12"><h4><i class="fa fa-book"></i> {{ event.module }}</h4></div>
+                            </div>
+
+                            <div class="col-md-12">
+                                {{ event.description|truncatewords:"70"|safe }}
+                            </div>
+
+                            <div class="col-md-3 event_details"><h4><i class="fa-li fa fa-clock-o"></i> {{ event.date|date:"h:m a" }}</h4></div>
+                            <div class="col-md-3 event_details"><h4><i class="fa-li fa fa-caret-square-o-right"></i> {{ event.get_type_display }}</h4></div>
+                            <div class="col-md-4 event_details"><h4><i class="fa-li fa fa-map-marker"></i> {{ event.location }}</h4></div>
+                            <div class="col-md-2 event_details"><h4><i class="fa-li fa fa-link"></i> <a href="{% url "event_details" event.id %}">More</a></h4></div>
+
+                        </div>
+                        {% if not forloop.last %}<div class="col-md-12 text-center"><h3><i class="fa fa-ellipsis-h"></i></h3></div>{% endif %}
+                    {% endfor %}
+
+
+
+                    <!-- Next/Prev page links  -->
+                    {% if posts.object_list and posts.paginator.num_pages > 1 %}
+                    <div class="row">
+                        <div class="col-md-4 text-left">
+                            <ul class="pagination pagination-sm">
+                                {% if posts.has_previous %}
+                                    <li><a href="?page={{ posts.previous_page_number }}">Newest</a></li>
+                                {% else %}
+                                    <li class="disabled"><a href="#">Newest</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="col-md-8 text-right">
+                            <ul class="pagination pagination-sm">
+
+                                {% if posts.has_previous %}
+                                    <li><a href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                    <li class="disabled"><a href="#">&laquo;</a></li>
+                                {% endif %}
+
+                                {% for num in posts.paginator.page_range %}
+                                    {% ifequal num posts.number %}
+                                        <li class="active"><a href="#">{{ num }}<span class="sr-only">(current)</span></a></li>
+                                    {% else %}
+                                        <li><a href="?page={{ num }}">{{ num }}</a></li>
+                                    {% endifequal %}
+                                {% endfor %}
+
+                                {% if posts.has_next %}
+                                    <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                    <li class="disabled"><a href="#">&raquo;</a></li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+	        </div>
+
+	        <div class="col-md-3">
+
+                {% student_block request %}
+
+                {% random_fact %}
+
+	        </div>
+	    </div>
+	<!-- Main End -->
+
+{% endblock %}

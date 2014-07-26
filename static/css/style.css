@@ -1,0 +1,321 @@
+html {
+    height:100%;
+}
+
+body {
+    padding-top: 70px;
+	background: #A6C0C5;
+}
+
+.navbar {
+	padding: 0;
+    border: 0;
+    /* background:rgba(216,239,245,0.955); */
+    background-color: #444444;
+    opacity: 0.955;
+}
+
+a.navbar-brand {
+    padding: 8px 20px;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a {
+    font-family: 'Open Sans', 'sans-serif';
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #FFF;
+}
+
+.jumbotron {
+	padding: 30px;
+}
+
+.notebook {
+    background-color: #f3f3f3;
+    background-image:
+        linear-gradient(90deg, transparent 24px, #abced4 24px, #abced4 26px, transparent 26px);
+    background-size: 100% 1.8em;
+}
+
+.spiral {
+    position: relative;
+    margin-bottom: -45px;
+    background-image: url('../images/spiral-horizontal.png');
+    background-repeat: repeat-x;
+    background-position-y: 0px;
+    height: 64px;
+}
+
+.notebook h2 {
+    font-family: 'Lilly Regular';
+    color: #3d3d3d;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.notebook h3 {
+    font-family: 'Lilly Regular';
+    line-height: 50px;
+    color: #3d3d3d;
+    text-align: center;
+}
+
+.notebook .fa {
+    color: #99a654;
+    margin: 0 10px;
+}
+
+.notebook .row {
+    padding-left: 10px;
+}
+
+.rowpadding {
+    padding: 0 30px;
+}
+
+.glyphicon {
+	margin: 0 5px;
+}
+
+.page-title {
+	color: #FFF;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.myStudies .control-label {
+	font-size: 20px;
+	font-weight: normal;
+}
+
+.steps {
+    margin: 20px 0;
+}
+
+.singlestep  {
+    background-color: #eee;
+    border-radius: 6px;
+    margin: 10px;
+    padding: 20px;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.singlestep > h4 {
+    margin-top: 20px;
+}
+
+.singlestep img {
+	 -webkit-transition: all 1s ease;
+    -moz-transition: all 2s ease;
+      -o-transition: all 2s ease;
+     -ms-transition: all 2s ease;
+         transition: all 2s ease;
+}
+
+.singlestep img:hover {
+   transform: rotate(-30deg);
+   -moz-transform: rotate(-30deg);
+   -webkit-transform: rotate(-30deg);
+}
+
+.steptransparent {
+    opacity:0.7;
+}
+
+/*
+Responsive youtube embed
+Reference: http://avexdesigns.com/responsive-youtube-embed/
+*/
+
+.vid {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.vid iframe,
+.vid object,
+.vid embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.event_datetime {
+    position:relative;
+    margin-top: -5px;
+}
+
+.event_datetime:before {
+    content: "\f133";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: #99a654;
+    font-size: 65px;
+    position: absolute;
+    left: 20px;
+}
+
+.event_date {
+    padding-left: 25px;
+    padding-top: 32px;
+    font-size: 20px;
+}
+
+.event_month {
+    font-size: 15px;
+    padding-left: 22px;
+    margin-top: -10px;
+    padding-top: 0;
+}
+
+.event_details .fa, .event_details h4 {
+    font-size:18px;
+    margin: 5px 0;
+}
+
+.event_details .fa-li {
+    position: static;
+    left: 0;
+}
+
+.jumbotron li {
+    font-size: 21px;
+    font-weight: 300;
+}
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    background-color: #99a654;
+    border-color: #99a654;
+}
+
+.pagination>li>a, .pagination>li>span {
+    color: #99a654;
+}
+
+.underline_dotted {
+    border-bottom: 1px dotted;
+}
+
+.well h2 {
+    margin-top: 10px;
+    font-family: 'Lilly Regular';
+}
+
+select#university, select#course, select#year {
+  -webkit-border-radius: 0px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+
+  -moz-appearance: window;
+
+  background-color: rgba(216,239,245,0);
+  background-position: center right;
+  background-repeat: no-repeat;
+  margin: 0;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  border:none;
+  border-bottom:thin dashed black;
+  outline:none;
+  font-size: 20px;
+}
+
+@-moz-document url-prefix() {
+    select#university, select#course, select#year {
+    background-color: rgba(216,239,245,0);
+    padding-right: 20px;
+    border-bottom:thin dashed black;
+
+  }
+}
+
+.enroll_button {
+    background-color: #829ba0;
+    color: #FFF;
+    font-size: 18px;
+    height: 40px;
+    border: 0;
+}
+
+.enroll_button .fa {
+    color: inherit;
+}
+
+.enroll_button:hover .fa {
+    color: #FFF;
+}
+
+.enroll_button:disabled {
+    background-color: #677b7f;
+}
+
+::selection { color: #FFF; background:#385156;}
+::-moz-selection { color: #FFF; background:#385156;}
+
+.home {
+    margin-bottom: 50px;
+}
+
+@media screen and (min-width: 800px) {
+    .home .jumbotron {
+        min-height: 445px;
+    }
+
+    .notebooks h4 {
+        padding-left: 15px;
+    }
+
+}
+
+.home_right h2 {
+    font-family: 'Lilly Regular';
+    font-size: 30px;
+}
+
+#equalheight {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+footer {
+    background-color: #f5f5f5;
+    padding: 15px 40px;
+}
+
+.cookiesnotice {
+    background-color: #444444;
+    color: #FFF;
+    padding: 5px 10px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.cookiesnotice a {
+    color: #FFF;
+}

@@ -1,0 +1,10 @@
+<!-- Announcements Start -->
+    {% for announcement in announcements %}
+        <div class="alert alert-info announcement">
+            <a href="#" class="close" data-dismiss="alert">×</a>
+            <h4>{{ announcement.title }}.</h4>
+            {{ announcement.date|date:"l, jS F, Y" }}<br />
+            {{ announcement.text }}
+        </div>
+    {% endfor %}
+<!-- Announcements End -->

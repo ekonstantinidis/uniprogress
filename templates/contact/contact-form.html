@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+		<div class="row">
+	        <div class="col-md-3"></div>
+	        <div class="col-md-6">
+                <div class="jumbotron">
+                    <h3>Get In Touch</h3>
+                    <p class="lead">Need some help using <b>uni progress</b> or you would like to contact me with
+                        your comments? Just use the form below or drop me an email at
+                        <script language="JavaScript">
+                            var username = "hello";
+                            var hostname = "uniprogress.co.uk";
+                            var linktext = username + "@" + hostname ;
+                            document.write("<a href='" + "mail" + "to:" + username + "@" + hostname + "'>" + linktext + "</a>");
+                        </script>!
+                        I would be really happy to help you!</p>
+                </div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+		<div class="row">
+	        <div class="col-md-3"></div>
+	        <div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Send me an email</h3>
+					</div>
+					<div class="panel-body">
+                        <!-- Contact Form Start -->
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <strong>Ooops!</strong> Something went wrong.<br />
+                                <ul class="fa-ul">
+                                    {% if form.name.errors %}<li><i class="fa-li fa fa-user fa"></i>Please enter your name.</li>{% endif %}
+                                    {% if form.email.errors %}<li><i class="fa-li fa fa-envelope fa"></i>Please enter your email address.</li>{% endif %}
+                                    {% if form.message.errors %}<li><i class="fa-li fa fa-font fa"></i>Please enter your message/comments.</li>{% endif %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <form action="/contact/" method="post">{% csrf_token %}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="sr-only" for="id_name">Full Name</label>
+                                    <input id="id_name" type="text" class="form-control" name="name" placeholder="Full Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                 <div class="form-group">
+                                    <label class="sr-only" for="id_email">Email Address</label>
+                                    <input id="id_email" type="email" class="form-control" name="email" placeholder="Email Address" {% if user.is_authenticated %} value="{{ user.email }}" {% endif %}>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="sr-only" for="id_message">Password</label>
+                                    <textarea id="id_message" name="message" class="form-control" rows="3" placeholder="Your Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Contact Form End -->
+					</div>
+				</div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% if enrolled %}
+    <ul class="nav navbar-nav navbar-right">
+      {% if user.is_superuser %}<li><a href="{% url 'admin:index' %}"><i class="fa fa-star-o fa-lg"></i> Backend</a></li>{% endif %}
+      <li><a href="{% url 'dashboard' %}"><i class="fa fa-comment-o fa-lg"></i> Dashboard</a></li>
+      <li><a href="{% url 'calendar' %}"><i class="fa fa-calendar-o fa-lg"></i> Calendar</a></li>
+      <li><a href="{% url 'events' %}"><i class="fa fa-sort fa-lg"></i> Events</a></li>
+      <li><a href="{% url 'modules' %}"><i class="fa fa-pencil-square-o fa-lg"></i> Modules</a></li>
+      <li><a href="{% url 'logout' %}"><i class="fa fa-power-off fa-lg"></i></a></li>
+    </ul>
+{% else %}
+    <ul class="nav navbar-nav navbar-right">
+      {% if user.is_superuser %}<li><a href="{% url 'admin:index' %}"><i class="fa fa-star-o fa-lg"></i> Backend</a></li>{% endif %}
+      <li><a href="{% url 'dashboard' %}"><i class="fa fa-comment-o fa-lg"></i> Enroll</a></li>
+      <li><a href="{% url 'logout' %}"><i class="fa fa-power-off fa-lg"></i></a></li>
+    </ul>
+{% endif %}

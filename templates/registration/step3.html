@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Step 3. Select your Course{% endblock %}
+
+{% block content %}
+		<div class="row">
+	        <div class="col-md-2"></div>
+	        <div class="col-md-8">
+                <div class="row page-title rowpadding"><h2>Step 3! Select your <b>Course</b>.</h2></div>
+                <div class="row rowpadding">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Is your course listed yet?</h3>
+                        </div>
+                        <div class="panel-body">
+                            <!-- Step 3 Form Start -->
+                            {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>Ooops!</strong> Something went wrong.<br />
+                                    <ul class="fa-ul">
+                                        {% if form.course.errors %}<li><i class="fa-li fa fa-user fa"></i>Select Course.</li>{% endif %}
+                                        {% if form.year.errors %}<li><i class="fa-li fa fa-calendar-o fa"></i>Enter your year of study.</li>{% endif %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            <blockquote>
+                            {% if not form.errors %}
+                                <p>So you are studying at <b>{{ university }}</b>. What is your course and in which year of studies are you?</p>
+                                <p>Did you choose the wrong university? Click <a href="{% url 'step2' %}">here</a> to go back to Step 2.</p>
+                            {% else %}
+                                <p>Did you choose the wrong university? Click <a href="{% url 'step2' %}">here</a> to go back to Step 2.</p>
+                            {% endif %}
+                            </blockquote>
+
+                            <form class="form-horizontal" action="{% url 'step3' %}" method="post">{% csrf_token %}
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="course">Studying</label>
+                                        <div class="col-sm-9">
+                                            <select name="course" id="course" class="form-control">
+                                                <option disabled selected>Your Course</option>
+                                                {% for course in courses %}
+                                                    <option value="{{ course.id }}">{{ course.course_info }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 control-label" for="year">in Year</label>
+                                        <div class="col-sm-6">
+                                            <select name="year" id="year" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                      <button type="submit" class="form-control btn btn-success">Correct</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- Step 3 Form End -->
+                        </div>
+                    </div>
+                </div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="row steps">
+                        <div class="col-md-4 steptransparent">
+                            <div class="row singlestep text-center">
+                                <img src="{% static "images/steps/step1.png" %}" alt="Step 1. Sign Up" /><br />
+                                <h4>Step 1<span class="glyphicon glyphicon-ok"></span><br /><b><s>Sign Up</s></b></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-4 steptransparent">
+                            <div class="row singlestep text-center">
+                                <img src="{% static "images/steps/step2.png" %}" alt="Step 2. Select Your University" /><br />
+                                <h4>Step 2<span class="glyphicon glyphicon-ok"></span><br /><b><s>Your University</s></b></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row singlestep text-center">
+                                <img src="{% static "images/steps/step3.png" %}" alt="Step 3. Select Your Course" /><br />
+                                <h4>Step 3<br /><b>Your Course</b></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+{% endblock %}
+
+{% block footer_scripts %}
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $("select#year").attr('disabled', true);
+
+    $("select#course").change(function() {
+        var url = "/membership/course/" + $(this).val() + "/get_course_years";
+        var brand = $(this).val();
+        $.getJSON(url, function(years) {
+            var options = '';
+            var years_int = +years;
+            for (var i = 1; i <= years_int; i++) {
+                options += '<option value="' + i + '">' + i + '</option>';
+            }
+            $("select#year").html(options);
+            $("select#year").attr('disabled', false);
+        });
+    });
+
+});
+
+</script>
+
+{% endblock %}

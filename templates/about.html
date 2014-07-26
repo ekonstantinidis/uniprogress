@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}About{% endblock %}
+
+{% block content %}
+		<div class="row">
+	        <div class="col-md-3"></div>
+	        <div class="col-md-6">
+                <div class="jumbotron">
+                    <h3>About</h3>
+                    <p class="text-center"><img class="img-responsive" src="{% static "images/logoBig.png" %}" alt="Uni Progress Logo" /></p>
+                    <p class="lead">Uni Progress is a website that organises your studies. Imagine a calendar based on student needs, where you are able to see upcoming lectures, labs, coursework deadlines and much more. Everything around student life.</p>
+                    <div class="vid">
+                        <iframe width="560" height="315" src="//www.youtube.com/embed/t7OZDZKjRis?hd=1&rel=0&autohide=1&showinfo=0" allowfullscreen=""></iframe>
+                    </div>
+                    <p class="lead">Its friendly interface allows you to setup your account in a few seconds. All you have to do is follow our 3 steps. Sign Up, select your university, course and year of study and you are ready to go. Check our calendar to see when your complete timetable, including lectures, labs, coursework deadlines, examination and pretty much everything a student needs.</p>
+                </div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+		<div class="row">
+	        <div class="col-md-3"></div>
+	        <div class="col-md-6">
+                <div class="jumbotron">
+                    <h3>A little bit more</h3>
+                    <p class="lead">My name is Emmanouil Konstantinidis and this is my final year project for the course Computer Science of University of Brighton.</p>
+                </div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+		<div class="row">
+	        <div class="col-md-3"></div>
+	        <div class="col-md-6">
+                <div class="jumbotron">
+                    <h3>Acknowledgements</h3>
+                    <p class="text-center"><a href="http://www.brighton.ac.uk/" target="_blank"><img class="img-responsive" src="{% static "images/unibrighton.png" %}" alt="University of Brighton" /></a></p>
+                    <p class="lead">Since this is my final year project for the University of Brighton, first I would like to thank all my teachers for providing me all the knowledge needed. Also I would like to thank my supervisor, Mr. Andrew Montgomery who helped throughout the duration of the project.</p>
+                </div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+		<div class="row">
+	        <div class="col-md-3"></div>
+	        <div class="col-md-6">
+                <div class="jumbotron">
+                    <h3>Based On</h3>
+                    <p class="lead">The website is built with Django, a Python web framework, while its design is based on Bootstrap framework.</p>
+                    <div class="row">
+                        <div class="col-md-5"><a href="http://www.djangoproject.com/" target="_blank"><img class="img-responsive" src="{% static "images/django.png" %}" alt="Django Framework" /></a></div>
+                        <div class="col-md-7"><a href="http://www.getbootstrap.com/" target="_blank"><img class="img-responsive" src="{% static "images/bootstrap.png" %}" alt="Bootstrap Framework" /></a></div>
+                    </div>
+                </div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+{% endblock %}

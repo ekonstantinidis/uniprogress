@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Profile Completed Successfully{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row page-title rowpadding"><h2>Congrats! What's next?</h2></div>
+            <div class="row steps rowpadding">
+                <div class="alert alert-success">
+                    <strong>Yes!</strong> You are ready to use <b>Uni Progress</b>.<br />
+                    Just go to your <a href="{% url 'calendar' %}">calendar</a> and track your progress!
+                </div>
+            </div>
+            <div class="row steps">
+                <div class="col-md-4 steptransparent">
+                    <div class="row singlestep text-center">
+                        <img src="{% static "images/steps/step1.png" %}" alt="Step 1. Sign Up" /><br />
+                        <h4>Step 1<span class="glyphicon glyphicon-ok"></span><br /><b><s>Sign Up</s></b></h4>
+                    </div>
+                </div>
+                <div class="col-md-4 steptransparent">
+                    <div class="row singlestep text-center">
+                        <img src="{% static "images/steps/step2.png" %}" alt="Step 2. Select Your University" /><br />
+                        <h4>Step 2<br /><b><s><s>Your University</s></b></h4>
+                    </div>
+                </div>
+                <div class="col-md-4 steptransparent">
+                    <div class="row singlestep text-center">
+                        <img src="{% static "images/steps/step3.png" %}" alt="Step 3. Select Your Course" /><br />
+                        <h4>Step 3<br /><b><s>Your Course</s></b></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+{% endblock %}

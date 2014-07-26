@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<!-- Student Block Start -->
+<div class="panel panel-default sidebar">
+	<div class="panel-heading">
+		<h3 class="panel-title">Hey, {{ username }}!</h3>
+	</div>
+	<div class="panel-body">
+        <div class="row text-center"><img src="{% static "images/gradCap80.png" %}" alt="Member Status" /></div>
+
+        <h4>Profile Completion</h4>
+        <div class="progress progress-striped active">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress }}%">
+                <span>{{ progress }}%</span>
+            </div>
+        </div>
+
+        {% if progress == 100 %}
+            <p class="alert alert-success">You're studying <b>{{ course }}</b> in year {{ year }}.</p>
+        {% endif %}
+
+        <div class="{% if progress != 100 %}text-info{% else %}text-success{% endif %}">
+            {% if progress != 100 %}
+                <h4><i class="fa fa-comments-o"></i> Hint!</h4>
+                <ul class="fa-ul">
+                {% if progress == 50 %}
+                    <li><i class="fa-li fa fa-book fa-lg"></i>Enter your University and Course. Takes just seconds using our <a href="{% url "step2" %}">steps</a>.</li>
+                {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+
+	</div>
+</div>
+<!-- Student Block End -->

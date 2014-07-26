@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load menu %}
+<html>
+
+  <head>
+    <title>{% block title %}{% endblock %} | Uni Progress</title>
+
+    <!-- Meta Tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="More than a calendar. More than an agenda. Based on student needs, an organiser that helps you pass modules, years and graduate!">
+	<meta name="keywords" content="uni,progress,university,agenda,calendar,student,students,course,module,lecture,lab,exam,coursework,deadline" />
+
+	<meta property="og:title" content="Uni Progress"/>
+	<meta property="og:description" content="More than a calendar. More than an agenda. Based on student needs, an organiser that helps you pass modules, years and graduate!"
+	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="http://www.uniprogress.co.uk"/>
+
+    <!-- Bootstrap -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <!-- Uni Progress Style CSS -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="{% static "fonts/font-awesome.min.css" %}" rel="stylesheet">
+    <!-- Lilly Regular Web Font CSS -->
+    <link href="{% static "fonts/Lilly-webfont.css" %}" rel="stylesheet">
+
+    <!-- Web Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="{% static "images/icon60.png" %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static "images/icon76.png" %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static "images/icon120.png" %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static "images/icon152.png" %}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    {% block extra_head %}{% endblock %}
+  </head>
+
+  <body>
+
+	<!-- Header / Navigation Start -->
+	<div class="navbar navbar-default navbar-fixed-top navbar-static-top" role="navigation">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="{% url "home" %}"><img src="{% static "images/logo.png" %}" alt="Uni Progress Logo" /></a>
+	    </div>
+	    <div class="collapse navbar-collapse">
+
+	      <ul class="nav navbar-nav">
+	        <li><a href="{% url 'about' %}">About</a></li>
+	        <li><a href="{% url 'contact' %}">Contact</a></li>
+	      </ul>
+
+        {% if user.is_authenticated %}
+            {% menu request %}
+        {% else %}
+	      <form class="navbar-form navbar-right" role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <input name="username" type="text" placeholder="Username / Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input name="password" type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success ">Sign in</button>
+          <input type="hidden" name="next" value="{% url 'dashboard' %}" />
+          </form>
+        {% endif %}
+
+	    </div><!--/.nav-collapse -->
+	  </div>
+	</div>
+	<!-- Header / Navigation End -->
+
+    <!-- Main Start -->
+    <div class="container theme-showcase">
+          {% block content %}{% endblock %}
+    </div>
+    <!-- Main End -->
+
+    <!-- Footer Start -->
+    <footer>
+        <div class="row text-center">Copyright Uni Progress.co.uk &copy; 2014. All Rights Reserved.</div>
+    </footer>
+    <div class="alert alert-info cookiesnotice">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <small>This site uses cookies. By continuing to browse the site you are agreeing to our use of cookies.</small>
+    </div>
+    <!-- Footer End -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <script src="{% static "js/jquery.cookie.js" %}"></script>
+
+    <script type="text/javascript">
+        jQuery(function( $ ){
+
+            // Check if alert has been closed
+            if( $.cookie('cookies-box') === 'closed' ){
+                $('.cookiesnotice').hide();
+            }
+
+             // Grab your button (based on your posted html)
+            $('.close').click(function( e ){
+                // Do not perform default action when button is clicked
+                e.preventDefault();
+                /* If you just want the cookie for a session don't provide an expires
+                 Set the path as root, so the cookie will be valid across the whole site */
+                $.cookie('cookies-box', 'closed', { path: '/' });
+            });
+
+        });
+    </script>
+
+    {% block footer_scripts %}{% endblock %}
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-6891078-35', 'uniprogress.co.uk');
+      ga('send', 'pageview');
+
+    </script>
+
+  </body>
+</html>

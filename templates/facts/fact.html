@@ -1,0 +1,15 @@
+<!-- Random Fact Start -->
+<div class="panel panel-default sidebar">
+	<div class="panel-heading">
+	    <h3 class="panel-title"><i class="fa fa-exclamation"></i> Did you know?</h3>
+	</div>
+	<div class="panel-body">
+        {% if fact %}
+            <p class="text-left">{{ fact.fact }}</p>
+            <p class="text-right"><i class="fa fa-link"></i> <i><a href="{{ fact.website }}" target="_blank">{{ fact.author }}</a></i></p>
+        {% else %}
+            <p class="text-left">There are currently no studying tips!</p>
+        {% endif %}
+	</div>
+</div>
+<!-- Random Fact End -->

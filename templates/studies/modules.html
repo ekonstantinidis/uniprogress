@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load student_block %}
+{% load upcoming_events %}
+{% load fact %}
+{% block title %}My Modules{% endblock %}
+
+{% block content %}
+	<!-- Main Start -->
+		<div class="row">
+	        <div class="col-md-9">
+
+                <div class="spiral"></div>
+                <div class="jumbotron notebook">
+                    <h2 class="page-title">My Modules</h2>
+                    <h3 class="page-title">So you're studying <span class="underline_dotted">{{ course }}</span> in year <span class="underline_dotted">{{ year }}</span>.</h3>
+                    {% if modules %}
+                        <p>Below you can find all your modules for this year.</p>
+                        <table class="table table-hover">
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Tasks/Events</th>
+                        {% for module in modules %}
+                            <tbody>
+                                <td>{{ module.code }}</td>
+                                <td>{{ module.name }}</td>
+                                <td><a href="{% url "module_details_upcoming" module.id %}">Upcoming</a> / <a href="{% url "module_details_previous" module.id %}">Previous</a></td>
+                            </tbody>
+                        {% endfor %}
+                        </table>
+                    {% else %}
+                        <p>Oops! It seems that there are no modules for {{ course.name }} in our records. Please contact your school office.</p>
+                    {% endif %}
+
+
+                </div>
+
+	        </div>
+
+	        <div class="col-md-3">
+
+                {% student_block request %}
+
+                {% random_fact %}
+
+	        </div>
+	    </div>
+	<!-- Main End -->
+
+{% endblock %}

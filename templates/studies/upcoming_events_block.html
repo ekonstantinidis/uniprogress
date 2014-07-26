@@ -1,0 +1,34 @@
+{% if events %}
+<ul class="fa-ul">
+{% endif %}
+
+{% if events %}
+    {% for event in events %}
+        <li><i class="fa-li fa
+        {% if event.type == 'CW' %}
+            fa-file-text-o
+        {% elif event.type == 'EX'%}
+            fa-pencil
+        {% elif event.type == 'LE' %}
+            fa-fa-bell-o
+        {% elif event.type == 'LA' %}
+            fa-flask
+        {% elif event.type == 'PR' %}
+            fa-microphone
+        {% elif event.type == 'OT' %}
+            fa-random
+        {% endif %}
+        fa-lg"></i><b>{{ event.get_type_display }}</b><br />{{ event.title }}<br />{{ event.date|date:"d-m-Y h:i a" }}<br /><i class="fa fa-link"></i> <a href="{% url "event_details" event.id %}">Read More</a></li>
+    {% endfor %}
+{% else %}
+    {% if error %}
+        <blockquote>
+            <p>{{ error }}</p>
+        </blockquote>
+    {% endif %}
+{% endif %}
+
+{% if events %}
+</ul>
+ <p class="text-right"><i class="fa fa-plus"></i> <a href="{% url 'events' %}">More Events</a></p>
+{% endif %}

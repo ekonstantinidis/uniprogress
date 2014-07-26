@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load student_block %}
+{% load upcoming_events %}
+{% load fact %}
+{% block title %}{{ event.title }} | Event{% endblock %}
+
+{% block content %}
+	<!-- Main Start -->
+		<div class="row">
+	        <div class="col-md-9">
+
+            <div class="spiral"></div>
+			<div class="jumbotron notebook">
+                <h2 class="page-title">{{ event.module }}</h2>
+                <h3><span class="underline_dotted">{{ event.title }}</span></h3>
+                {% if event.type == 'EX' %}
+                    <div class="alert alert-info">
+                        <h4>Do not forget!</h4>
+                        <p>It seems that you got an examination on the {{ event.date|date:"jS" }} of {{ event.date|date:"F" }}. Please note that the timetable is subject to change.</p>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-6"><h4><i class="fa fa-caret-square-o-right"></i> {{ event.get_type_display }}</h4></div>
+                    <div class="col-md-6"><h4><i class="fa fa-map-marker"></i> {{ event.location }}</h4></div>
+                    <div class="col-md-6"><h4><i class="fa fa-calendar-o"></i> {{ event.date|date:"l, jS F, Y" }}</h4></div>
+                    <div class="col-md-6"><h4><i class="fa fa-clock-o"></i> {{ event.date|date:"h:i a" }}</h4></div>
+			    </div>
+                <div class="row">
+                    <div class="col-md-12 text-center"><h3>Description/Brief</h3></div>
+                    <div class="col-md-12">{{ event.description|safe }}</div>
+                </div>
+            </div>
+
+	        </div>
+	        <div class="col-md-3">
+
+                {% student_block request %}
+
+				<!-- Sidebar Menu Start -->
+				<div class="panel panel-default sidebar">
+					<div class="panel-heading">
+						<h3 class="panel-title">Upcoming Events</h3>
+					</div>
+					<div class="panel-body">
+						{% upcoming_events request %}
+					</div>
+				</div>
+				<!-- Sidebar Menu end -->
+
+                {% random_fact %}
+
+	        </div>
+	    </div>
+	<!-- Main End -->
+
+{% endblock %}

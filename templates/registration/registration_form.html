@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+		<div class="row">
+	        <div class="col-sm-12 col-md-3"></div>
+	        <div class="col-sm-12 col-md-6">
+                {% if user.is_authenticated %}
+                    <div class="alert alert-danger">
+                        <strong>Ooops!</strong> It seems that you are already logged in.<br />
+                        Click <a href="{%  url "dashboard" %}">here</a> to view your dashboard.<br />
+                    </div>
+                {% else %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Not a member yet? Sign up!</h3>
+                        </div>
+                        <div class="panel-body">
+                                <!-- Registration Form Start -->
+                                {% if form.errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>Ooops!</strong> Something went wrong.<br />
+                                        <ul class="fa-ul">
+                                            {% if form.username.errors %}<li><i class="fa-li fa fa-user fa"></i>A user with that username already exists.</li>{% endif %}
+                                            {% if form.email.errors %}<li><i class="fa-li fa fa-envelope fa"></i>This email address is already in use. Please supply a different email address.</li>{% endif %}
+                                            {% if form.password2.errors %}<li><i class="fa-li fa fa-key fa"></i>The two password fields didn't match.</li>{% endif %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                <form action="{% url 'register' %}" role="form" method="post">{% csrf_token %}
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="sr-only" for="id_username">Username</label>
+                                        <input type="text" class="form-control" id="id_username" name="username" placeholder="Username">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="sr-only" for="id_email">Email Address</label>
+                                        <input type="email" class="form-control" id="id_email" name="email" placeholder="Email Address">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="sr-only" for="password1">Password</label>
+                                        <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Password">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="sr-only" for="password2">Confirm Password</label>
+                                        <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Confirm Password">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <div class="form-group">
+                                        <button type="submit" class="form-control btn btn-success">Register</button>
+                                      </div>
+                                  </div>
+                                </form>
+                                <!-- Registration Form End -->
+                        </div>
+                    </div>
+                {% endif %}
+	        </div>
+	        <div class="col-sm-12 col-md-3"></div>
+	    </div>
+{% endblock %}

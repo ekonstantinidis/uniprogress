@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load upcoming_events %}
+{% load announcements_block %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+		<div class="row">
+	        <div class="col-md-2"></div>
+	        <div class="col-md-8">
+                <div class="spiral"></div>
+                <div class="jumbotron notebook">
+                    <h2 class="page-title">Hello, {{ user }}!</h2>
+
+                    {% if messages %}
+                        <div class="alert alert-success">
+                            {% for message in messages %}
+                                <strong>Right!</strong> {{ message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% announcements_today request %}
+
+                    {% if enrolled %}
+                        <h3 class="page-title"><span class="underline_dotted">Today</span></h3>
+                        {% if not today %}
+                            <p class="text-center">No tasks/events for today.</p>
+                        {% else %}
+                            <div class="row">
+                                    {% for event in today %}
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <p><i class="fa {% if event.type == 'CW' %} fa-file-text-o {% elif event.type == 'EX'%} fa-pencil {% elif event.type == 'LE' %} fa-fa-bell-o {% elif event.type == 'LA' %} fa-flask {% elif event.type == 'PR' %} fa-microphone {% elif event.type == 'OT' %} fa-random {% endif %} fa-lg"></i>
+                                            <span class="underline_dotted">{{ event.get_type_display }}</span>: {{ event.module }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <p><i class="fa fa-edit"></i> {{ event.title }} (<a href="{% url "event_details" event.id %}">More</a>)</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row"><p><i class="fa fa-map-marker"></i> {{ event.location }}, {{ event.date|date:"jS F, h:i a" }}</p></div>
+                                    </div>
+                                    {% if not forloop.last %}<div class="col-md-12 text-center"><p><i class="fa fa-ellipsis-h"></i></p></div>{% endif %}
+                                    {% endfor %}
+                            </div>
+                        {% endif %}
+
+
+                        <h3 class="page-title"><span class="underline_dotted">Upcoming Tasks</span></h3>
+                        {% if not upcoming %}
+                            <p class="text-center">No upcoming tasks. Feels like summer, isn't it?</p>
+                        {% else %}
+                            <div class="row">
+                                    {% for event in upcoming %}
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <p><i class="fa {% if event.type == 'CW' %} fa-file-text-o {% elif event.type == 'EX'%} fa-pencil {% elif event.type == 'LE' %} fa-fa-bell-o {% elif event.type == 'LA' %} fa-flask {% elif event.type == 'PR' %} fa-microphone {% elif event.type == 'OT' %} fa-random {% endif %} fa-lg"></i>
+                                            <span class="underline_dotted">{{ event.get_type_display }}</span>: {{ event.module }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <p><i class="fa fa-edit"></i> {{ event.title }} (<a href="{% url "event_details" event.id %}">More</a>)</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row"><p><i class="fa fa-map-marker"></i> {{ event.location }}, {{ event.date|date:"jS F, h:i a" }}</p></div>
+                                    </div>
+                                    {% if not forloop.last %}<div class="col-md-12 text-center"><p><i class="fa fa-ellipsis-h"></i></p></div>{% endif %}
+                                    {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    {% else %}
+
+
+
+
+
+
+
+
+
+
+                        <form class="form-horizontal" action="{% url 'enroll' %}" role="form" method="post">{% csrf_token %}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label" for="university">You are studying at</label>
+                                    <div class="col-sm-6">
+                                        <select id="university" name="university" class="form-control">
+                                            <option disabled selected>Your University</option>
+                                            {% for university in universities %}
+                                            <option value="{{ university.id }}">{{ university.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="course">Your course is</label>
+                                    <div class="col-sm-7">
+                                        <select id="course" name="course" class="form-control">
+                                            <option disabled selected>Your Course</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label" for="year">In Year</label>
+                                    <div class="col-sm-4">
+                                        <select id="year" name="year" class="form-control">
+                                            <option disabled selected>Year of Studies</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6 form-group">
+                                    <button id="enroll" type="submit" class="form-control btn btn-success enroll_button">Enroll Me <i class="fa fa-check"></i></button>
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                        </form>
+                        <!-- Step 2 Form End -->
+
+
+
+
+
+
+
+
+
+
+
+
+                    {% endif %}
+
+                    <div class="row">
+                        <hr />
+                        <div class="col-md-6">
+                            <small class="text-left">{{ now|date:"l, jS F, Y" }}</small>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <small>{% if enrolled %}Studying <span class="underline_dotted">{{ course }}</span> in year <span class="underline_dotted">{{ year }}</span>.{% else %}Student Enrollment{% endif %}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	        <div class="col-md-2"></div>
+	    </div>
+		<div class="row">
+	        <div class="col-md-2"></div>
+	        <div class="col-md-8">
+                <div class="well">
+                    <h2 class="text-center">Latest Updates</h2>
+                    <div id="unifeed"></div>
+                </div>
+            </div>
+	        <div class="col-md-2"></div>
+	    </div>
+{% endblock %}
+
+{% block extra_head %}
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript"> google.load("feeds", "1") //Load Google Ajax Feed API (version 1) </script>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("select#course").attr('disabled', true);
+            $("select#year").attr('disabled', true);
+            $("button#enroll").attr('disabled', true);
+
+            $("select#university").change(function() {
+                 var url = "/membership/university/" + $(this).val() + "/get_university_courses/";
+                 var university = $(this).val();
+                 $.getJSON(url, function(models) {
+                     var options = '<option disabled selected>Your Course</option>';
+                     for (var i = 0; i < models.length; i++) {
+                        options += '<option value="' + models[i].pk + '">' + models[i].fields['name'] + ", " + models[i].fields['degree'] + '</option>';
+                     }
+                     $("select#course").html(options);
+                     $("select#course option:first").attr('selected', 'selected');
+                     $("select#course").attr('disabled', false);
+                 });
+            });
+
+            $("select#course").change(function() {
+                var url = "/membership/course/" + $(this).val() + "/get_course_years/";
+                var brand = $(this).val();
+                $.getJSON(url, function(years) {
+                    var options = '<option disabled selected>Year of Studies</option>';
+                    var years_int = +years;
+                    for (var i = 1; i <= years_int; i++) {
+                        options += '<option value="' + i + '">' + i + '</option>';
+                    }
+                    $("select#year").html(options);
+                    $("select#year").attr('disabled', false);
+                });
+            });
+
+
+            $("select#year").change(function() {
+                $("button#enroll").attr('disabled', false);
+            });
+
+        });
+
+
+        var feedcontainer = document.getElementById("unifeed")
+        var feedurl = "https://community.brighton.ac.uk/pg/blog/group:66252?view=rss"
+        var feedlimit = 5
+        var rssoutput = "<div class='row'>"
+
+        function rssfeedsetup() {
+            var feedpointer = new google.feeds.Feed(feedurl) //Google Feed API method
+            feedpointer.setNumEntries(feedlimit) //Google Feed API method
+            feedpointer.load(displayfeed) //Google Feed API method
+        }
+
+        function displayfeed(result) {
+            if (!result.error) {
+                var thefeeds = result.feed.entries
+                for (var i = 0; i < thefeeds.length; i++)
+                    rssoutput += "<div class='col-md-12'><p>" + thefeeds[i].title + " <a target='_blank' href='" + thefeeds[i].link + "'>More</a></p></div>"
+                rssoutput += "</div>"
+                feedcontainer.innerHTML = rssoutput
+            } else
+                alert("Error fetching feeds!")
+        }
+
+        window.onload = function () {
+            rssfeedsetup()
+        }
+    </script>
+{% endblock %}

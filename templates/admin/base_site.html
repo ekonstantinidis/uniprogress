@@ -1,0 +1,11 @@
+<!-- Added Logo of the website. Added link to frontend. -->
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Uni Progress.co.uk' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url "home" %}">{% trans 'Uni Progress Backend' %}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

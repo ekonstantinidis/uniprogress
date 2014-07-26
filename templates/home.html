@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load upcoming_events %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+
+        {% if form.errors %}
+            <div class="col-sm-12 col-md-3"></div>
+            <div class="col-sm-12 col-md-6">
+                <div class="alert alert-danger">
+                    <strong>Ooops!</strong> Something went wrong.<br />
+                    <ul class="fa-ul">
+                        {% if form.username.errors %}<li><i class="fa-li fa fa-user fa"></i>A user with that username already exists.</li>{% endif %}
+                        {% if form.email.errors %}<li><i class="fa-li fa fa-envelope fa"></i>This email address is already in use. Please supply a different email address.</li>{% endif %}
+                        {% if form.password2.errors %}<li><i class="fa-li fa fa-key fa"></i>The two password fields didn't match.</li>{% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3"></div>
+        {% endif %}
+
+		<div class="col-md-12">
+            <div id="equalheight">
+                <div class="col-sm-12 col-md-1"></div>
+                <div class="col-sm-12 col-md-5 home">
+                    <div class="jumbotron mockup">
+                        <h3>Welcome to Uni Progress.</h3>
+                        <p class="lead">More than a calendar. More than an agenda. Based on student needs, an organiser that helps you pass modules, years and graduate!</p>
+                        <img src="{% static "images/mockup.png" %}" alt="Mock Up" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-5 home">
+
+                    <div class="jumbotron">
+                        <h3>Registration.</h3>
+
+                        <p class="lead">Takes less than 30 seconds!</p>
+                        <!-- Registration Form Start -->
+                        <form action="{% url 'register' %}" method="post">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="sr-only" for="id_username">Username</label>
+                                    <input type="text" class="form-control" id="id_username" name="username" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="sr-only" for="id_email">Email Address</label>
+                                    <input type="email" class="form-control" name="email" id="id_email" placeholder="Email Address">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="sr-only" for="password1">Password</label>
+                                    <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="sr-only" for="password2">Confirm Password</label>
+                                    <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Confirm Password">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-success enroll_button">Register <i class="fa fa-check"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        <!-- Registration Form End -->
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-1"></div>
+            </div>
+        </div>
+
+{% endblock %}
